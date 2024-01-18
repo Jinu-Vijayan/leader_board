@@ -48,7 +48,7 @@ function renderPlayerStats(){
  scoreChange function will update the score of the player according to the button that has been pressed by user
 
  @param {String} playerName - name of the player whose score is to be updated
- 
+
  @param {String} changeType - should the score be increased or decreased. If value is increase corresponding players score will be increased by 5 , if value is decrease corresponding players score will be decreased by 5
  **************************************************************************/
 
@@ -104,7 +104,7 @@ PLAYER_DATA_FORM.addEventListener("submit",(event) => {
     const SCORE = document.querySelector("#score");
 
     let player = {
-        name : `${FIRST_NAME.value} ${LAST_NAME.value}`,
+        name : `${FIRST_NAME.value} ${LAST_NAME.value}`.trim(),
         country : COUNTRY.value,
         score : Number(SCORE.value)
     }
