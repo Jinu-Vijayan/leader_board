@@ -4,104 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leader Board</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <main>
-        <h1>LeaderBoard</h1>
-        <form action="" onsubmit="addPlayer(event)">
+        <div id="top-container">
+            <h1>LeaderBoard</h1>
+            <form action=""  id="player-data-form">
 
-            <div>
-                <label for="first-name">First Name:-</label>
-                <input type="text" id="first-name" placeholder="First Name">
-            </div>
+                <div>
+                    <label for="first-name">First Name:-</label>
+                    <input type="text" id="first-name" placeholder="First Name" required>
+                </div>
 
-            <div>
-                <label for="last-name">Last Name:-</label>
-                <input type="text" id="last-name" placeholder="Last Name">
-            </div>
+                <div>
+                    <label for="last-name">Last Name:-</label>
+                    <input type="text" id="last-name" placeholder="Last Name" required>
+                </div>
 
-            <div>
-                <label for="country">Country:-</label>
-                <input type="text" id="country" placeholder="Country">
-            </div>
+                <div>
+                    <label for="country">Country:-</label>
+                    <input type="text" id="country" placeholder="Country" required>
+                </div>
 
-            <div>
-                <label for="score">Score:-</label>
-                <input type="number" id="score" placeholder="Score" max="100" min="0">
-            </div>
+                <div>
+                    <label for="score">Score:-</label>
+                    <input type="number" id="score" placeholder="Score" max="100" min="0" value="0">
+                </div>
 
-            <button type="submit">Submit</button>
-        </form>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
         <ul id="player-list">
-
         </ul>
     </main>
-    <script>
-
-        const PlayersList = [];
-
-        function addPlayer(event){
-            event.preventDefault();
-
-            const playerList = document.querySelector("#player-list")
-
-            const firstName = document.querySelector("#first-name").value;
-            const lastName = document.querySelector("#last-name").value;
-            const country = document.querySelector("#country").value;
-            const score = document.querySelector("#score").value;
-
-            const playerData = {
-                name:`${firstName} ${lastName}`,
-                country:country,
-                score:Number(score)
-            }
-
-            PlayersList.push(playerData);
-            refreshList();
-        }
-
-        function refreshList(){
-            const playerList = document.querySelector("#player-list")
-
-            PlayersList.sort((player1,player2) => parseInt(player2.score) - parseInt(player1.score))
-
-            console.log(PlayersList);
-
-            playerList.innerHTML = "";
-            PlayersList.forEach((player,index) => {
-                const liEl = document.createElement("li");
-                const nameContent = document.createElement("span");
-                const countryContent = document.createElement("span");
-                const currentScore = document.createElement("span");
-                const increaseScore = document.createElement("button");
-                const decreaseScore = document.createElement("button");
-
-
-                increaseScore.innerText = "+5"
-                decreaseScore.innerText = "-5"
-                currentScore.innerText = player.score;
-                country.innerText = player.country;
-                nameContent.innerText = player.name;
-
-                increaseScore.setAttribute("onclick",`increaseScoreHandler(${index})`);
-                decreaseScore.setAttribute("onclick",`decreaseScoreHandler(${index})`);
-
-                liEl.append(nameContent,countryContent,currentScore,increaseScore,decreaseScore);
-
-                playerList.append(liEl);
-            })
-        }
-
-        function increaseScoreHandler(index){
-            PlayersList[index].score += 5;
-            refreshList();
-        }
-
-        function decreaseScoreHandler(index){
-            PlayersList[index].score -= 5;
-            refreshList();
-        }
-
-    </script>
+    <script src="./script.js"></script>
 </body>
 </html>
