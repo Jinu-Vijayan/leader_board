@@ -48,19 +48,49 @@ function renderPlayerStats(){
  scoreChange function will update the score of the player according to the button that has been pressed by user
 
  @param {String} playerName - name of the player whose score is to be updated
+ 
  @param {String} changeType - should the score be increased or decreased. If value is increase corresponding players score will be increased by 5 , if value is decrease corresponding players score will be decreased by 5
  **************************************************************************/
 
 function scoreChange(playerName,changeType){
+
     playerDataList.forEach((player) => {
+
         if(player.name === playerName){
+
             if(changeType === "increase"){
                 player.score += 5;
             } else {
                 player.score -= 5;
             }
+
         }
+
     })
+
+}
+
+/**************************************************************************
+ isNameAvailabe checks if the name given in the input is already present in the playerDataList array 
+
+ @param {String} playerName - the name that is given in the input 
+***************************************************************************/
+
+function isNameAvailable(playerName){
+
+    let avialable = true;
+
+    playerDataList.forEach((player) => {
+
+        if(player.name === playerName){
+
+            avialable = false;
+
+        }
+
+    })
+
+    return avialable;
 }
 
 // event listener to get player data from form
@@ -68,20 +98,33 @@ PLAYER_DATA_FORM.addEventListener("submit",(event) => {
 
     event.preventDefault();
 
-    const FIRST_NAME_CONTENT = document.querySelector("#first-name").value;
-    const LAST_NAME_CONTENT = document.querySelector("#last-name").value;
-    const COUNTRY_CONTENT = document.querySelector("#country").value;
-    const SCORE_CONTENT = document.querySelector("#score").value;
+    const FIRST_NAME = document.querySelector("#first-name");
+    const LAST_NAME = document.querySelector("#last-name");
+    const COUNTRY= document.querySelector("#country");
+    const SCORE = document.querySelector("#score");
 
     let player = {
-        name : `${FIRST_NAME_CONTENT} ${LAST_NAME_CONTENT}`,
-        country : COUNTRY_CONTENT,
-        score : Number(SCORE_CONTENT)
+        name : `${FIRST_NAME.value} ${LAST_NAME.value}`,
+        country : COUNTRY.value,
+        score : Number(SCORE.value)
     }
 
-    playerDataList.push(player);
+    if(!isNameAvailable(player.name)){
 
-    renderPlayerStats();
+        alert("Player already exists in leader board");
+
+    } else {
+
+        playerDataList.push(player);
+
+        renderPlayerStats();
+
+    }
+
+    FIRST_NAME.value = "";
+    LAST_NAME.value = "";
+    COUNTRY.value = "";
+    SCORE.value = "0";
 })
 
 // event listener to delete and update score of player
