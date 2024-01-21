@@ -82,6 +82,11 @@ main{
     color: #ffffff;
     padding: 0.625rem;
     border-radius: 0.625rem;
+    transition: all 0.5s ease-in;
+}
+
+.player-data:hover{
+    transform: scale(1.1);
 }
 
 .player-data>button{
